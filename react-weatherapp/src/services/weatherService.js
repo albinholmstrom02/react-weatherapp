@@ -10,7 +10,7 @@ const getFormattedWeatherData = async (city, units = 'metric') => {
     .then((res) => res.json())
     .then((data) => data);
     
-    const {
+    const{ 
         weather, 
         main: {temp, temp_min, temp_max},
         sys:{country},
@@ -18,16 +18,33 @@ const getFormattedWeatherData = async (city, units = 'metric') => {
     } = data;
 
     const {description, icon} = weather[0];
-
+    
     return {
         description, iconURL: makeIconURL(icon), temp, temp_min, temp_max, country, name
     }
 };
 
-const getFormattedForecastData = async (lat, lon, ) => {
-    const URL = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}.99&appid=${API_KEY}`
+const getFormattedForecastData = async (city, units = 'metric') => {
     
-};
+    const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=${units}`
+    
+    const data = await fetch(URL)
+    .then((res) => res.json())
+    .then((data) => data);
+    
+    const {
+        list: {main:{temp, temp_min, temp_max},
+        weather, 
+        dt_txt
+        },
+        city: {name, country}
+    } = data;
 
+    const {description, icon} = weather[0];
+
+    return {
+        description, iconURL: makeIconURL(icon), temp, temp_min, temp_max, country, name, dt_txt
+    }
+};
 
 export {getFormattedWeatherData, getFormattedForecastData};

@@ -1,13 +1,12 @@
 import Bg from "./assets/hot.jpg";
-import Container from "./components/container";
+import Input from "./components/InputDiv";
+import Forecast from "./components/Forecast";
 
 function App() {
   return (
-    <div className="app" style={{backgroundImage: `url(${Bg})`}}>
+    <div className="app" style={{ backgroundImage: `url(${Bg})`}}>
       <div className="overlay">
-        {
-        <Container/>
-        }
+        <Input/>
       </div>
     </div>
   );
