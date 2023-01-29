@@ -1,33 +1,21 @@
 import { useEffect, useState } from "react";
 import { getFormattedWeatherData } from "../services/weatherService";
 
-function Input() {
-    const [city, setCity] = useState("Stockholm");
+function Input({city}) {
     const [weather, setWeather] = useState(null);
 
     useEffect(() => {
     const fetchWeatherData = async () => {
-        const data = await getFormattedWeatherData(city);
+        const data = await getFormattedWeatherData({city});
         setWeather(data);
     };
 
     fetchWeatherData();
-  }, [city]);
-
-    const enterKeyPressed = (e) => {
-    if (e.keyCode === 13) {
-        setCity(e.currentTarget.value);
-        e.currentTarget.blur();
-    }
-  };
-  
+  });
     return (
         weather && 
         (
             <div className="container">
-                <div className="section section__inputs">
-                    <input onKeyDown={enterKeyPressed} type="text" name="city" placeholder="Enter a location..."/>
-                </div>
                 <div className="section section__temperature">
                     <div className="icon">
                         <h3>{`${weather.name}, ${weather.country}`}</h3>

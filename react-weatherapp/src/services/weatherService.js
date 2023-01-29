@@ -2,7 +2,7 @@ const API_KEY = '098fc63991af7bd81c3274899243e67c';
 
 const makeIconURL = (iconId) => `https://openweathermap.org/img/wn/${iconId}@2x.png`
 
-const getFormattedWeatherData = async (city, units = 'metric') => {
+const getFormattedWeatherData = async ({city}, units = 'metric') => {
 
     const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=${units}`;
 
@@ -24,7 +24,7 @@ const getFormattedWeatherData = async (city, units = 'metric') => {
     }
 };
 
-const getFormattedForecastData = async (city, units = 'metric') => {
+const getFormattedForecastData = async ({city}, units = 'metric') => {
     
     const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=${units}`
     
@@ -33,13 +33,12 @@ const getFormattedForecastData = async (city, units = 'metric') => {
     .then((data) => data);
     
     const {
-        list: {main:{temp, temp_min, temp_max},
-        weather, 
-        dt_txt
-        },
-        city: {name, country}
+        list,
+        city: {name, country},
+        weather,
     } = data;
 
+    const {temp, temp_min, temp_max, dt_txt} = list[3, 11, 19, 27, 35];
     const {description, icon} = weather[0];
 
     return {
