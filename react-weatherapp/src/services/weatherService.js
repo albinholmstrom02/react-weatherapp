@@ -1,49 +1,79 @@
-const API_KEY = '098fc63991af7bd81c3274899243e67c';
+import React, {useState} from 'react';
+import Form from '../components/Form';
+import WeatherInfo from '../components/WeatherInfo';
 
-const makeIconURL = (iconId) => `https://openweathermap.org/img/wn/${iconId}@2x.png`
+//API 098fc63991af7bd81c3274899243e67c
 
-const getFormattedWeatherData = async ({city}, units = 'metric') => {
+const WeatherService = () => {
 
-    const URL = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=${units}`;
+    let urlWeather = "https://api.openweathermap.org/data/2.5/weather?appid=098fc63991af7bd81c3274899243e67c&units=metric";
+    let cityUrl = "&q=";
 
-    const data = await fetch(URL)
-    .then((res) => res.json())
-    .then((data) => data);
-    
-    const{ 
-        weather, 
-        main: {temp, temp_min, temp_max},
-        sys:{country},
-        name,
-    } = data;
+    let urlForecast = "https://api.openweathermap.org/data/2.5/forecast?appid=098fc63991af7bd81c3274899243e67c&units=metric"
 
-    const {description, icon} = weather[0];
-    
-    return {
-        description, iconURL: makeIconURL(icon), temp, temp_min, temp_max, country, name
+    const [weather, setWeather] = useState([]);
+    const [forecast, setForecast] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [show, setShow] = useState(false);
+    const [location, setLocation] = useState("");
+
+    const getLocation = async(loc) => {
+        setLoading(true);
+        setLocation(loc);
+
+        //Weather
+
+        urlWeather = urlWeather + cityUrl + loc;
+
+        await fetch(urlWeather).then((response) =>{
+            if(!response.ok) throw {response}
+            return response.json();
+        }).then((weatherData) =>{
+            console.log(weatherData);
+            setWeather(weatherData);
+        }).catch(error =>{
+            console.log(error);
+            setLoading(false);
+            setShow(false);
+        });
+
+        //Forecast
+
+        urlForecast = urlForecast + cityUrl + loc;
+
+        await fetch(urlForecast).then((response) =>{
+            if(!response.ok) throw {response}
+            return response.json();
+        }).then((forecastData) =>{
+            console.log(forecastData);
+            setForecast(forecastData);
+
+            setLoading(false);
+            setShow(true);
+
+        }).catch(error =>{
+            console.log(error);
+            setLoading(false);
+            setShow(false);
+        });
+
+        
     }
-};
 
-const getFormattedForecastData = async ({city}, units = 'metric') => {
-    
-    const URL = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${API_KEY}&units=${units}`
-    
-    const data = await fetch(URL)
-    .then((res) => res.json())
-    .then((data) => data);
-    
-    const {
-        list,
-        city: {name, country},
-        weather,
-    } = data;
 
-    const {temp, temp_min, temp_max, dt_txt} = list[3, 11, 19, 27, 35];
-    const {description, icon} = weather[0];
+    return(
+        <React.Fragment>
+            <Form
+                newLocation = {getLocation}
+            />
+            <WeatherInfo
+                showData = {show}
+                loadingData = {loading}
+                weather = {weather}
+                forecast = {forecast}
+            />
+        </React.Fragment>
+    );
+}
 
-    return {
-        description, iconURL: makeIconURL(icon), temp, temp_min, temp_max, country, name, dt_txt
-    }
-};
-
-export {getFormattedWeatherData, getFormattedForecastData};
+export default WeatherService;
