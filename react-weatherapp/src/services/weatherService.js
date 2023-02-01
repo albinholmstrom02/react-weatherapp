@@ -15,7 +15,7 @@ const WeatherService = () => {
     const [forecast, setForecast] = useState([]);
     const [loading, setLoading] = useState(false);
     const [show, setShow] = useState(false);
-    const [location, setLocation] = useState("");
+    const [location, setLocation] = useState("Stockholm");
 
     const getLocation = async(loc) => {
         setLoading(true);

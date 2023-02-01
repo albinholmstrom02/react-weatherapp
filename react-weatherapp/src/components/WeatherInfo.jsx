@@ -38,11 +38,11 @@ const WeatherInfo = ({loadingData, showData, weather, forecast}) => {
         iconUrl_4 = url + forecast.list[30].weather[0].icon + ".png";
         iconUrl_5 = url + forecast.list[39].weather[0].icon + ".png";
 
-        forecastDate_1 = forecast.list[3].dt_txt.substring(8, 10) + '/' + forecast.list[3].dt_txt.substring(5, 7) + '/' + forecast.list[3].dt_txt.substring(0, 4) + ' ' +  forecast.list[3].dt_txt.substring(11, 13);
-        forecastDate_2 = forecast.list[12].dt_txt.substring(8, 10) + '/' + forecast.list[12].dt_txt.substring(5, 7) + '/' + forecast.list[12].dt_txt.substring(0, 4) + ' ' +  forecast.list[12].dt_txt.substring(11, 13);
-        forecastDate_3 = forecast.list[21].dt_txt.substring(8, 10) + '/' + forecast.list[21].dt_txt.substring(5, 7) + '/' + forecast.list[21].dt_txt.substring(0, 4) + ' ' +  forecast.list[21].dt_txt.substring(11, 13);
-        forecastDate_4 = forecast.list[30].dt_txt.substring(8, 10) + '/' + forecast.list[30].dt_txt.substring(5, 7) + '/' + forecast.list[30].dt_txt.substring(0, 4) + ' ' +  forecast.list[30].dt_txt.substring(11, 13);
-        forecastDate_5 = forecast.list[39].dt_txt.substring(8, 10) + '/' + forecast.list[39].dt_txt.substring(5, 7) + '/' + forecast.list[39].dt_txt.substring(0, 4) + ' ' +  forecast.list[39].dt_txt.substring(11, 13);
+        forecastDate_1 = forecast.list[3].dt_txt.substring(8, 10) + '/' + forecast.list[3].dt_txt.substring(5, 7) + '/' + forecast.list[3].dt_txt.substring(0, 4);
+        forecastDate_2 = forecast.list[12].dt_txt.substring(8, 10) + '/' + forecast.list[12].dt_txt.substring(5, 7) + '/' + forecast.list[12].dt_txt.substring(0, 4);
+        forecastDate_3 = forecast.list[21].dt_txt.substring(8, 10) + '/' + forecast.list[21].dt_txt.substring(5, 7) + '/' + forecast.list[21].dt_txt.substring(0, 4);
+        forecastDate_4 = forecast.list[30].dt_txt.substring(8, 10) + '/' + forecast.list[30].dt_txt.substring(5, 7) + '/' + forecast.list[30].dt_txt.substring(0, 4);
+        forecastDate_5 = forecast.list[39].dt_txt.substring(8, 10) + '/' + forecast.list[39].dt_txt.substring(5, 7) + '/' + forecast.list[39].dt_txt.substring(0, 4);
 
     }
 
@@ -72,29 +72,29 @@ const WeatherInfo = ({loadingData, showData, weather, forecast}) => {
 
                                 <div className="row mt-4">
                                     <div className="col">
-                                        <p>{forecastDate_1}:00</p>
+                                        <p>{forecastDate_1}</p>
                                         <p className="description"><img src={iconUrl_1} alt="icon"/>{forecast.list[1].weather[0].description}</p>
-                                        <p className="temp">{(forecast.list[1].main.temp).toFixed(1)}ºC</p>
+                                        <p className="temp">{(forecast.list[3].main.temp).toFixed(1)}ºC</p>
                                     </div>
                                     <div className="col">
-                                        <p>{forecastDate_2}:00</p>
+                                        <p>{forecastDate_2}</p>
                                         <p className="description"><img src={iconUrl_2} alt="icon"/>{forecast.list[2].weather[0].description}</p>
-                                        <p className="temp">{(forecast.list[2].main.temp).toFixed(1)}ºC</p>
+                                        <p className="temp">{(forecast.list[12].main.temp).toFixed(1)}ºC</p>
                                     </div>
                                     <div className="col">
-                                        <p>{forecastDate_3}:00</p>
+                                        <p>{forecastDate_3}</p>
                                         <p className="description"><img src={iconUrl_3} alt="icon"/>{forecast.list[3].weather[0].description}</p>
-                                        <p className="temp">{(forecast.list[3].main.temp).toFixed(1)}ºC</p>
+                                        <p className="temp">{(forecast.list[21].main.temp).toFixed(1)}ºC</p>
                                     </div>
                                     <div className="col">
-                                        <p>{forecastDate_4}:00</p>
+                                        <p>{forecastDate_4}</p>
                                         <p className="description"><img src={iconUrl_4} alt="icon"/>{forecast.list[3].weather[0].description}</p>
-                                        <p className="temp">{(forecast.list[3].main.temp).toFixed(1)}ºC</p>
+                                        <p className="temp">{(forecast.list[30].main.temp).toFixed(1)}ºC</p>
                                     </div>
                                     <div className="col">
-                                        <p>{forecastDate_5}:00</p>
+                                        <p>{forecastDate_5}</p>
                                         <p className="description"><img src={iconUrl_5} alt="icon"/>{forecast.list[3].weather[0].description}</p>
-                                        <p className="temp">{(forecast.list[3].main.temp).toFixed(1)}ºC</p>
+                                        <p className="temp">{(forecast.list[39].main.temp).toFixed(1)}ºC</p>
                                     </div>
                                 </div>
                             </div>
